@@ -105,11 +105,11 @@ block78:
 
 	.align 16
 block79:
-    movq %r12, %rcx
-    addq $5, %rcx
-    movq %rbx, %rdx
-    addq %rbx, %rdx
-    cmpq %rdx, %rcx
+    movq %r12, %rdx
+    addq $5, %rdx
+    movq %rbx, %rcx
+    addq %rbx, %rcx
+    cmpq %rcx, %rdx
     jl block77
     jmp block78
 

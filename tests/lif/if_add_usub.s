@@ -16,19 +16,19 @@ block202:
 
 	.align 16
 block203:
-    movq %r12, %rcx
+    movq %rbx, %rcx
     negq %rcx
     jmp block202
 
 	.align 16
 block204:
-    movq %rbx, %rcx
+    movq %r12, %rcx
     jmp block202
 
 	.align 16
 mainstart:
-    movq $1, %r12
-    movq $2, %rbx
+    movq $1, %rbx
+    movq $2, %r12
     callq read_int
     movq %rax, %rcx
     cmpq $0, %rcx

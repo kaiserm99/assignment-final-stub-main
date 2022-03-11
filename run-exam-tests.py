@@ -14,6 +14,7 @@ compiler = CompilerLexam()
 if False:
     enable_tracing()
 
+# test_suites = ['bug_tests']
 test_suites = ['exam', 'mytests', 'bug_tests']
 
 if all(validate_tests(t, InterpLexam().interp) for t in test_suites):

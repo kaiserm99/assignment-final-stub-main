@@ -5,8 +5,8 @@ mainconclusion:
 
 	.align 16
 block6:
-    addq %rdx, %rcx
-    movq %rcx, %rdi
+    addq %rcx, %rdx
+    movq %rdx, %rdi
     callq print_int
     movq $0, %rcx
     movq %rcx, %rax
@@ -14,12 +14,12 @@ block6:
 
 	.align 16
 block7:
-    movq $5, %rdx
+    movq $5, %rcx
     jmp block6
 
 	.align 16
 block8:
-    movq $3, %rdx
+    movq $3, %rcx
     jmp block6
 
 	.align 16
@@ -28,7 +28,7 @@ block9:
 
 	.align 16
 block10:
-    movq $3, %rcx
+    movq $3, %rdx
     jmp block9
 
 	.align 16

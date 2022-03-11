@@ -11,36 +11,36 @@ mainconclusion:
 	.align 16
 mainstart:
     movq $10, %rcx
+    movq $10, -56(%rbp)
+    movq $10, %rdi
+    movq $10, %r9
+    movq $10, %r13
+    movq $10, %rdx
+    movq $10, %rsi
+    movq $10, %r14
     movq $10, %r10
+    movq $10, -48(%rbp)
+    movq $10, -64(%rbp)
     movq $10, -72(%rbp)
     movq $10, %rbx
     movq $10, %r12
     movq $10, -40(%rbp)
     movq $10, %r8
-    movq $10, %rsi
-    movq $10, %rdx
-    movq $10, %r9
-    movq $10, -48(%rbp)
-    movq $10, -56(%rbp)
-    movq $10, %rdi
-    movq $10, %r14
-    movq $10, -64(%rbp)
-    movq $10, %r13
+    addq -56(%rbp), %rcx
+    addq %rdi, %rcx
+    addq %r9, %rcx
+    addq %r13, %rcx
+    addq %rdx, %rcx
+    addq %rsi, %rcx
+    addq %r14, %rcx
     addq %r10, %rcx
+    addq -48(%rbp), %rcx
+    addq -64(%rbp), %rcx
     addq -72(%rbp), %rcx
     addq %rbx, %rcx
     addq %r12, %rcx
     addq -40(%rbp), %rcx
     addq %r8, %rcx
-    addq %rsi, %rcx
-    addq %rdx, %rcx
-    addq %r9, %rcx
-    addq -48(%rbp), %rcx
-    addq -56(%rbp), %rcx
-    addq %rdi, %rcx
-    addq %r14, %rcx
-    addq -64(%rbp), %rcx
-    addq %r13, %rcx
     movq %rcx, %rdi
     callq print_int
     movq $0, %rcx

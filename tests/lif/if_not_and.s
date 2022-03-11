@@ -16,7 +16,7 @@ block110:
 	.align 16
 block111:
     movq %rbx, %rcx
-    subq %rsi, %rcx
+    subq %rdx, %rcx
     jmp block110
 
 	.align 16
@@ -37,7 +37,7 @@ block114:
 
 	.align 16
 block115:
-    movq %rdx, %rcx
+    movq %rsi, %rcx
     jmp block113
 
 	.align 16
@@ -45,13 +45,13 @@ mainstart:
     callq read_int
     movq %rax, %rbx
     callq read_int
-    movq %rax, %rsi
-    cmpq %rsi, %rbx
+    movq %rax, %rdx
+    cmpq %rdx, %rbx
     sete %al
     movzbq %al, %rcx
-    cmpq %rsi, %rbx
+    cmpq %rdx, %rbx
     setne %al
-    movzbq %al, %rdx
+    movzbq %al, %rsi
     cmpq $0, %rcx
     je block114
     jmp block115

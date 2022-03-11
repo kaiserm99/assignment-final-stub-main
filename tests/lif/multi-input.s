@@ -30,10 +30,10 @@ block214:
 	.align 16
 block215:
     callq read_int
-    movq %rax, %rdx
-    movq $42, %rcx
-    addq %rdx, %rcx
-    movq %rcx, %rdi
+    movq %rax, %rcx
+    movq $42, %rdx
+    addq %rcx, %rdx
+    movq %rdx, %rdi
     callq print_int
     jmp block211
 

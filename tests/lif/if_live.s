@@ -15,25 +15,25 @@ block186:
 
 	.align 16
 block187:
-    movq %rcx, %rdi
+    movq %rdx, %rdi
     callq print_int
     jmp block186
 
 	.align 16
 block188:
-    movq %rdx, %rdi
+    movq %rcx, %rdi
     callq print_int
     jmp block186
 
 	.align 16
 mainstart:
     callq read_int
-    movq %rax, %rcx
-    movq %rcx, %rdx
-    addq $1, %rdx
-    movq %rdx, %rbx
+    movq %rax, %rdx
+    movq %rdx, %rcx
+    addq $1, %rcx
+    movq %rcx, %rbx
     addq $1, %rbx
-    cmpq $0, %rcx
+    cmpq $0, %rdx
     je block187
     jmp block188
 

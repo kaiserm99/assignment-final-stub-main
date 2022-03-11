@@ -37,11 +37,11 @@ block322:
     movq -8(%r15), %r11
     movq %r13, 8(%r11)
     movq -8(%r15), %r11
-    movq %r12, 16(%r11)
+    movq %rbx, 16(%r11)
     movq -8(%r15), %rax
     movq %rax, -16(%r15)
     movq -16(%r15), %rdi
-    callq *%rbx
+    callq *%r12
     movq %rax, %rcx
     movq %rcx, %rdi
     callq print_int
@@ -62,9 +62,9 @@ block324:
 
 	.align 16
 mainstart:
-    leaq func(%rip), %rbx
+    leaq func(%rip), %r12
     movq $42, %r13
-    movq $0, %r12
+    movq $0, %rbx
     movq free_ptr(%rip), %rcx
     addq $24, %rcx
     movq fromspace_end(%rip), %rdx

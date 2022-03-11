@@ -112,14 +112,13 @@ class DirectedAdjList:
             return "black"
         
     def show(self, engine='neato'):
-      from graphviz import Digraph
-      dot = Digraph(engine=engine)
-      for u in self.vertices():
-          dot.node(self.name(u), self.vertex_text(u))
-      for e in self.edges():
-          dot.edge(self.name(e.source), self.name(e.target), label=self.label(e),
-                   color=self.color(e), len='1.5')
-      return dot
+        from graphviz import Digraph
+        dot = Digraph(engine=engine)
+        for u in self.vertices():
+            dot.node(self.name(u), self.vertex_text(u))
+        for e in self.edges():
+            dot.edge(self.name(e.source), self.name(e.target), label=self.label(e), color=self.color(e), len='1.5')
+        return dot
 
 class UEdge(Edge):
     def raw(self):
@@ -168,13 +167,13 @@ class UndirectedAdjList(DirectedAdjList):
         self.edge_set.remove(UEdge(u,v))
                 
     def show(self):
-      from graphviz import Graph
-      dot = Graph(engine='neato')
-      for u in self.vertices():
-        dot.node(self.name(u))
-      for e in self.edges():
-        dot.edge(self.name(e.source), self.name(e.target), len='1.5')
-      return dot
+        from graphviz import Graph
+        dot = Graph(engine='neato')
+        for u in self.vertices():
+            dot.node(self.name(u))
+        for e in self.edges():
+            dot.edge(self.name(e.source), self.name(e.target), len='1.5')
+        return dot
 
 
 ################################################################################

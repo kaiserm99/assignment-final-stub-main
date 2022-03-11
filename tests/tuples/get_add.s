@@ -72,19 +72,19 @@ block316:
     movq $8207, 0(%r11)
     movq %r11, -32(%r15)
     movq -32(%r15), %r11
+    movq %r12, 8(%r11)
+    movq -32(%r15), %r11
+    movq %rbx, 16(%r11)
+    movq -32(%r15), %r11
     movq -48(%rbp), %rax
-    movq %rax, 8(%r11)
-    movq -32(%r15), %r11
-    movq %r13, 16(%r11)
-    movq -32(%r15), %r11
-    movq %r14, 24(%r11)
-    movq -32(%r15), %r11
-    movq %rbx, 32(%r11)
+    movq %rax, 24(%r11)
     movq -32(%r15), %r11
     movq -40(%rbp), %rax
-    movq %rax, 40(%r11)
+    movq %rax, 32(%r11)
     movq -32(%r15), %r11
-    movq %r12, 48(%r11)
+    movq %r13, 40(%r11)
+    movq -32(%r15), %r11
+    movq %r14, 48(%r11)
     movq -32(%r15), %r11
     movq -16(%r15), %rax
     movq %rax, 56(%r11)
@@ -146,19 +146,18 @@ block321:
 
 	.align 16
 mainstart:
+    movq $42, %r12
+    movq $42, %rbx
     movq $42, -48(%rbp)
+    movq $42, -40(%rbp)
     movq $42, %r13
     movq $42, %r14
-    movq $42, %rbx
-    movq $42, -40(%rbp)
-    movq $42, %r12
     movq $0, -56(%rbp)
     movq $42, -64(%rbp)
     movq free_ptr(%rip), %rcx
-    movq %rcx, %rdx
-    addq $24, %rdx
-    movq fromspace_end(%rip), %rcx
-    cmpq %rcx, %rdx
+    addq $24, %rcx
+    movq fromspace_end(%rip), %rdx
+    cmpq %rdx, %rcx
     jl block320
     jmp block321
 

@@ -49,9 +49,10 @@ block289:
     movq -16(%r15), %rax
     movq %rax, -8(%r15)
     movq free_ptr(%rip), %rcx
-    addq $16, %rcx
-    movq fromspace_end(%rip), %rdx
-    cmpq %rdx, %rcx
+    movq %rcx, %rdx
+    addq $16, %rdx
+    movq fromspace_end(%rip), %rcx
+    cmpq %rcx, %rdx
     jl block287
     jmp block288
 

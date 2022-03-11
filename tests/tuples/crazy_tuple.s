@@ -23,11 +23,11 @@ block241:
     movq %rax, -136(%r15)
     movq -136(%r15), %r11
     movq 16(%r11), %rax
-    movq %rax, -144(%r15)
-    movq -144(%r15), %r11
-    movq 16(%r11), %rax
     movq %rax, -184(%r15)
     movq -184(%r15), %r11
+    movq 16(%r11), %rax
+    movq %rax, -144(%r15)
+    movq -144(%r15), %r11
     movq 16(%r11), %rax
     movq %rax, -176(%r15)
     movq -176(%r15), %r11
@@ -38,11 +38,11 @@ block241:
     movq %rax, -160(%r15)
     movq -160(%r15), %r11
     movq 16(%r11), %rax
-    movq %rax, -168(%r15)
-    movq -168(%r15), %r11
-    movq 16(%r11), %rax
     movq %rax, -152(%r15)
     movq -152(%r15), %r11
+    movq 16(%r11), %rax
+    movq %rax, -168(%r15)
+    movq -168(%r15), %r11
     movq 8(%r11), %rcx
     movq %rcx, %rdi
     callq print_int
@@ -75,9 +75,10 @@ block244:
     movq -112(%r15), %rax
     movq %rax, -8(%r15)
     movq free_ptr(%rip), %rcx
-    addq $24, %rcx
-    movq fromspace_end(%rip), %rdx
-    cmpq %rdx, %rcx
+    movq %rcx, %rdx
+    addq $24, %rdx
+    movq fromspace_end(%rip), %rcx
+    cmpq %rcx, %rdx
     jl block242
     jmp block243
 
@@ -138,10 +139,9 @@ block250:
     movq -96(%r15), %rax
     movq %rax, -16(%r15)
     movq free_ptr(%rip), %rcx
-    movq %rcx, %rdx
-    addq $24, %rdx
-    movq fromspace_end(%rip), %rcx
-    cmpq %rcx, %rdx
+    addq $24, %rcx
+    movq fromspace_end(%rip), %rdx
+    cmpq %rdx, %rcx
     jl block248
     jmp block249
 

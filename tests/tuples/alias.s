@@ -59,9 +59,10 @@ mainstart:
     callq read_int
     movq %rax, %rbx
     movq free_ptr(%rip), %rcx
-    addq $24, %rcx
-    movq fromspace_end(%rip), %rdx
-    cmpq %rdx, %rcx
+    movq %rcx, %rdx
+    addq $24, %rdx
+    movq fromspace_end(%rip), %rcx
+    cmpq %rcx, %rdx
     jl block275
     jmp block276
 

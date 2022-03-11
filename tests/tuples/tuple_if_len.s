@@ -65,9 +65,9 @@ block283:
     movq $5, 0(%r11)
     movq %r11, -24(%r15)
     movq -24(%r15), %r11
-    movq %r12, 8(%r11)
+    movq %rbx, 8(%r11)
     movq -24(%r15), %r11
-    movq %rbx, 16(%r11)
+    movq %r12, 16(%r11)
     movq -24(%r15), %rax
     movq %rax, -32(%r15)
     movq -32(%r15), %rax
@@ -95,8 +95,8 @@ block285:
 
 	.align 16
 mainstart:
-    movq $3, %r12
-    movq $5, %rbx
+    movq $3, %rbx
+    movq $5, %r12
     movq free_ptr(%rip), %rcx
     movq %rcx, %rdx
     addq $24, %rdx

@@ -4,6 +4,7 @@ from graph import *
 from priority_queue import *
 import pprint
 from utils import TupleType
+from functools import reduce
 
 pprint = pprint.PrettyPrinter(indent=4).pprint
 caller_saved_registers : set[location] = set([Reg("rax"), Reg("rcx"), Reg("rdx"), Reg("rsi"), Reg("rdi"), Reg("r8"), Reg("r9"), Reg("r10"), Reg("r11")])
@@ -52,6 +53,7 @@ def get_read_write_locations(istr : Instr) -> tuple[set[location], set[location]
             return (set(), get_arg_locations(arg))
         case Callq(l, i):
             return (argument_passing_registers(i), caller_saved_registers)
+
         # L_fun
         case IndirectCallq(l, i):
             return (argument_passing_registers(i) | {l}, caller_saved_registers)
@@ -84,33 +86,38 @@ def cfg(basic_blocks: dict[str, list[instr]]) -> DirectedAdjList:
         for suc in successors:
             g.add_edge(name, suc)
     return g
+
+def get_cfg(basic_blocks: dict[str, list[instr]]) -> DirectedAdjList:
+    g = cfg(basic_blocks)
+    return g
     
-def get_liveness_order(basic_blocks: dict[str, list[instr]]) -> list:
-    g = transpose(cfg(basic_blocks))
-    return topological_sort(g)
+def get_liveness_order(cfg_graph: DirectedAdjList) -> list:
+    t_cfg_graph = transpose(cfg_graph)
+    return topological_sort(t_cfg_graph)
 
-def uncover_live_blocks(order, basic_blocks: dict[str, list[instr]]) \
-        -> dict[str, list[set[location]]]: 
-    live_before_block: dict[str, set[location]] = dict()
-    output: dict[str, list[set[location]]] = dict()
-    for block_name in order:
-        block_live = [set()]
-        for istr in basic_blocks[block_name][::-1]:
-            match istr:
-                case Jump(label):
-                    block_live.insert(0, live_before_block[label])
-                case JumpIf(_, label):
-                    block_live.insert(0, live_before_block[label] | block_live[0])
-                case _:
-                    L_after = block_live[0]
-                    R, W = get_read_write_locations(istr)
-                    block_live.insert(0, (L_after - W) | R)
-        live_before_block[block_name] = block_live[0]
-        output[block_name] = block_live
-    return output
+def analyze_dataflow(cfg_graph: DirectedAdjList, basic_blocks: dict[str, list[instr]]) -> dict[str, list[set[location]]]: 
+    # Achutung: anders wie im Algorithmus darf nicht der transpoierte graph genommen werden!
+    mapping = dict((v, [set()]) for v in cfg_graph.vertices())
+    worklist = [v for v in cfg_graph.vertices()]
 
-def uncover_live(istrs : list[Instr]) -> list[set[location]]:
-    output = [set()]
+    while len(worklist) > 0:
+        node = worklist.pop(0)
+        adj_nodes = cfg_graph.adjacent(node)
+
+        input_set: set[location] = set()
+        for a_v in adj_nodes:
+            input_set |= mapping[a_v][0]
+
+        output = uncover_live(basic_blocks[node], input_set)
+
+        if output != mapping[node]:
+            worklist.extend(adj_nodes)
+            mapping[node] = output
+
+    return mapping
+
+def uncover_live(istrs : list[Instr], inital: set[location]) -> list[set[location]]:
+    output = [inital]
     for istr in istrs[::-1]:
         L_after = output[0]
         R, W = get_read_write_locations(istr)
@@ -119,9 +126,12 @@ def uncover_live(istrs : list[Instr]) -> list[set[location]]:
 
 def build_interference(basic_blocks: dict[str, list[instr]], var_types) -> UndirectedAdjList:
     graph = UndirectedAdjList()
-    order = get_liveness_order(basic_blocks)
-    liveblocks = uncover_live_blocks(order, basic_blocks)
-    for block_name in order:
+    # Get the CFG graph, which is needed to compute the dataflow
+    cfg_graph = get_cfg(basic_blocks)
+
+    liveblocks = analyze_dataflow(cfg_graph, basic_blocks)
+    
+    for block_name in liveblocks:
         istrs = basic_blocks[block_name]
         live = liveblocks[block_name]
         for s in live:

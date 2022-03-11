@@ -18,22 +18,22 @@ block332:
     movq $7, 0(%r11)
     movq %r11, -24(%r15)
     movq -24(%r15), %r11
-    movq %r12, 8(%r11)
-    movq -24(%r15), %r11
     movq -56(%rbp), %rax
-    movq %rax, 16(%r11)
+    movq %rax, 8(%r11)
+    movq -24(%r15), %r11
+    movq %r12, 16(%r11)
     movq -24(%r15), %r11
     movq -48(%rbp), %rax
     movq %rax, 24(%r11)
     movq -24(%r15), %rax
     movq %rax, -16(%r15)
-    movq -72(%rbp), %rdi
-    movq %r13, %rsi
-    movq -40(%rbp), %rdx
-    movq %rbx, %rcx
-    movq %r14, %r8
+    movq %rbx, %rdi
+    movq -64(%rbp), %rsi
+    movq %r13, %rdx
+    movq %r14, %rcx
+    movq -72(%rbp), %r8
     movq -16(%r15), %r9
-    movq -64(%rbp), %rax
+    movq -40(%rbp), %rax
     addq $48, %rsp
     popq %rbx
     popq %r13
@@ -62,31 +62,30 @@ block335:
 	.align 16
 block336:
     movq func(%rip), %rax
-    movq %rax, -64(%rbp)
+    movq %rax, -40(%rbp)
     movq -8(%r15), %r11
-    movq 8(%r11), %r12
-    movq -8(%r15), %r11
-    movq 16(%r11), %rax
+    movq 8(%r11), %rax
     movq %rax, -56(%rbp)
+    movq -8(%r15), %r11
+    movq 16(%r11), %r12
     movq -8(%r15), %r11
     movq 24(%r11), %rax
     movq %rax, -48(%rbp)
     movq free_ptr(%rip), %rcx
-    movq %rcx, %rdx
-    addq $32, %rdx
-    movq fromspace_end(%rip), %rcx
-    cmpq %rcx, %rdx
+    addq $32, %rcx
+    movq fromspace_end(%rip), %rdx
+    cmpq %rdx, %rcx
     jl block333
     jmp block334
 
 	.align 16
 funcstart:
     movq %r9, -8(%r15)
-    movq %r8, %r14
-    movq %rcx, %rbx
-    movq %rdx, -40(%rbp)
-    movq %rsi, %r13
-    movq %rdi, -72(%rbp)
+    movq %r8, -72(%rbp)
+    movq %rcx, %r14
+    movq %rdx, %r13
+    movq %rsi, -64(%rbp)
+    movq %rdi, %rbx
     movq -8(%r15), %r11
     movq 24(%r11), %rcx
     cmpq $0, %rcx
@@ -126,11 +125,11 @@ block337:
     movq $7, 0(%r11)
     movq %r11, -16(%r15)
     movq -16(%r15), %r11
-    movq %r13, 8(%r11)
+    movq %rbx, 8(%r11)
     movq -16(%r15), %r11
-    movq %r12, 16(%r11)
+    movq %r14, 16(%r11)
     movq -16(%r15), %r11
-    movq %rbx, 24(%r11)
+    movq %r12, 24(%r11)
     movq -16(%r15), %rax
     movq %rax, -8(%r15)
     movq $0, %rdi
@@ -139,7 +138,7 @@ block337:
     movq $0, %rcx
     movq $0, %r8
     movq -8(%r15), %r9
-    callq *%r14
+    callq *%r13
     movq %rax, %rcx
     movq %rcx, %rdi
     callq print_int
@@ -160,10 +159,10 @@ block339:
 
 	.align 16
 mainstart:
-    leaq func(%rip), %r14
-    movq $0, %r13
-    movq $0, %r12
+    leaq func(%rip), %r13
     movq $0, %rbx
+    movq $0, %r14
+    movq $0, %r12
     movq free_ptr(%rip), %rcx
     movq %rcx, %rdx
     addq $32, %rdx
